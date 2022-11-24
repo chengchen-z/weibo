@@ -1,0 +1,97 @@
+<!--
+	此示例下载自 https://echarts.apache.org/examples/zh/editor.html?c=dataset-encode0&code=PYBwLglsB2AEC8sDeAoW7JgDYFMBcya6sYOAHmAQOSB1-oFrKg4aaA05oKMGg-IaBgSoAnmVANLEXS4AZpVhUAxjmikATlSIBfXkQAmAQzDqAzjjGpisbcACusqQQDag4paraJwWTj7j1AW1MzXVELOCqJhJgVAC6KobolgAcAJwAdADM_ACs0QBMAIzp_FQAspoSABbqsAAymqRhEZGWKQDs8Zn89RkpACy5eRBYANawACo46tU2UfXt8Z2w7ZkADIk54gDCRTg4urDLwI4j4WOwdXNN_Nn1KSm5q-ubAEL-AO7QEC77kYdx8fX86XOZ7ZdxAUwMVSttdqN3pYAGzRE6weqxf7Q3JDPY1QyWTIJFGwJHRFJLKgAeVk6mgAHMcLAAFImCBSSG1ebxXHzTIEollHCeOB0hmvDG2RZfH5_bK5ADq6iw0BMYFg92ATxeYRsoSUNQpsggqgISFgjhk6gg0AqACMcFgCGBZCZqcoiGQAIJkCDafWwaAefDiBxOFywR3oACervdnrAIZAvskmhwFKcIaoQZqADd3SYZQUQPqbE4XjJqEUCwAvGBaLB8GwiMSSaRyauGdymgjzIXudRkNtzOZC0gUKxUQD3noBA8x8gAjbcdvYgAelnsBzJDWRkczkNwCwJnccDAwA3WCcNlUEHc0m0UGgBD7NlNACVyVS8-9HIfZEOAMTQlLf78-D-qNEEjqOowj_gAYvUtzOnMtxqoYiiakQug6hsVg2AYkRRjG1Dmuo8hCug0iOKovqYe886LuoIDLtSABEHheGAdEHtuu77gAGrAXbuvEBzoN2fpri4hFzguS5gCudF-AEQTMaxO4kPuACa3Futo_GwCG1AyYEwQKO8iEIUQGqKAA3EAA
+	⚠ 请注意，该图表不是 Apache ECharts 官方示例，而是由用户代码生成的。请注意鉴别其内容。
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+  
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+    option = {
+   title: {
+    text: '微博文本情感分析', 
+    left: 'center'
+  },
+  dataset: {
+    source: [
+      ['score', 'amount', 'product'],
+      [89.3, 58212, 'Matcha Latte'],
+      [57.1, 78254, 'Milk Tea'],
+      [74.4, 41032, 'Cheese Cocoa'],
+      [50.1, 12755, 'Cheese Brownie'],
+      [89.7, 20145, 'Matcha Cocoa'],
+      [68.1, 79146, 'Tea'],
+      [19.6, 91852, 'Orange Juice'],
+      [10.6, 101852, 'Lemon Juice'],
+      [32.7, 20112, 'Walnut Brownie']
+    ]
+  },
+  grid: { containLabel: true },
+  xAxis: { name: 'score' },
+  yAxis: { type: 'category' },
+  visualMap: {
+    orient: 'horizontal',
+    left: 'center',
+    min: 10,
+    max: 100,
+    text: ['积极', '消极'],
+    // Map the score column to color
+    dimension: 0,
+    inRange: {
+      color: ['#656565', '#d8caaf', '#F7BA0B']
+    }
+  },
+  series: [
+    {
+      type: 'bar',
+      encode: {
+        // Map the "amount" column to X axis.
+        x: 'score',
+        // Map the "product" column to Y axis
+        y: 'product'
+      }
+    }
+  ]
+};
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!--
+	此示例下载自 https://echarts.apache.org/examples/zh/editor.html?c=bar-negative2&lang=js&code=MYewdgzgLgBANgQwEYFM4CUCWBzAFrAXhgG8AoGGABxAkyk3AC4YByAJx3xdIF8BuUiEr1wMImQr0ocFMwkUYUFAA8ozFoDr9QFrKgcNNANOaBRg0D4hoDAlQAnmLADQxyCmQDM1rYCjBK23Cj0u2oIEHD0lHK2khzY2Chs6gjKmBBWoTCx8QAKIJhuUSEKClAAnpSyrBC4CAAmIADungo8tt622BzlOXlCzAAcAAw-uUggUH4AtswAzN0NfTDKAIJxEG2ShcUsAG4IcACuKIm51LQiYOp-lHsKEJRwdAAymcXyuddgKADKBTJLuYor6uUIpRQ5VquXqoKmtny83iXwKRXUwAQSmwIDY-XOFBSEDuLzkMFK1WY9k2EBQMEauSxN2QaDxBKqRJJZIpCixABVMMAANZ03CEmDEuCk8nTCiXa5QHEPfF8hkCpkipL_KAIZgAbSSFBYSjAGIULDA9z1WpQnCgxpKKDWrgtLFoylt9kw1sdIC2HlF-qguDYKF2nq1UCqIFt4F2SQAuhCxVFMChFjANblHgowAhhqsAMI0c0Bn7w1hIBAezX4lXc9RswabC2IVBwL65enMKBsHZ5ij2VHDJHudTEJA8EF1PPK1WJ0sUYgwDbbYoAWm6ADpugB2ax12nwGkYM2K74KaeznbMRcrgCcG53zE3u7wsBZB-XACYOzBlwAWD9vo-bE8wM9nzGK96xvHcsHvfcD3fFdOh_Gc_wXZcAEZ123UD0LQCD8Cgp8lw_ddJxIBC51PZcxgANhArdb2wh83xQzpSyjcEKCjfggA
+	⚠ 请注意，该图表不是 Apache ECharts 官方示例，而是由用户代码生成的。请注意鉴别其内容。
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>微博文本数据情感分析</title>
+    <meta content="" name="descriptison">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="static/assets/img/favicon.png" rel="icon">
+    <link href="static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i,900"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/venobox/venobox.css" rel="stylesheet">
+    <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="static/assets/css/style.css" rel="stylesheet">
+</head>
+<body style="height: 100%; margin: 0">
+<header id="header">
+    <div class="container">
+
+        <!--      <div class="logo float-left">-->
+        <!--        <h1 class="text-light"><a href="temp.html"><span>Lzz</span></a></h1>-->
+        <!--        &lt;!&ndash; Uncomment below if you prefer to use an image logo &ndash;&gt;-->
+        <!--         <a href="temp.html"><img src="static/assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        <!--      </div>-->
+
+        <nav class="nav-menu float-right d-none d-lg-block">
+            <ul>
+                <li><a href="/index">首页<i class="la la-angle-down"></i></a></li>
+                <li><a href="/news">微博文本</a></li>
+                <li class="active"><a href="/score">情感统计</a></li>
+                <li><a href="/cloud">词云</a></li>
+                <li><a href="/aboutUs">关于我们</a></li>
+
+            </ul>
+        </nav><!-- .nav-menu -->
+
+    </div>
+</header><!-- End Header -->
+
+<!--图表部分-->
+<section id="team" class="team" style="width:70% ;margin: 0 auto">
+    <div id="container" >
+        <!--    第一个图表-->
+        <section class="counts section-bg">
+            <div class="container" >
+                <div class="section-title">
+                    <h2>情感极性分析</h2>
+                </div>
+                <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                <div id="main" style="width: 100%; height:500px"></div>
+                <script type="text/javascript"
+                        src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>
+                <!-- Uncomment this line if you want to dataTool extension
+                <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/extension/dataTool.min.js"></script>
+                -->
+                <!-- Uncomment this line if you want to use gl extension
+                <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+                -->
+                <!-- Uncomment this line if you want to echarts-stat extension
+                <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+                -->
+                <!-- Uncomment this line if you want to use map
+                <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+                <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+                -->
+                <!-- Uncomment these two lines if you want to use bmap extension
+                <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+                <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/extension/bmap.min.js"></script>
+                -->
+
+                <script type="text/javascript">
+                    var dom = document.getElementById('main');
+                    var myChart = echarts.init(dom, null, {
+                        renderer: 'canvas',
+                        useDirtyRect: false
+                    });
+                    var app = {};
+
+                    var option;
+
+                    const labelRight = {
+                        position: 'right'
+                    };
+                    option = {
+                        title: {
+                            text: '微博文本情感分析',
+                            left: 'center'
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        grid: {
+                            top: 80,
+                            bottom: 30
+                        },
+                        xAxis: {
+                            type: 'value',
+                            position: 'top',
+                            splitLine: {
+                                lineStyle: {
+                                    type: 'dashed'
+                                }
+                            }
+                        },
+                        yAxis: {
+                            type: 'category',
+                            axisLine: {show: false},
+                            axisLabel: {show: false},
+                            axisTick: {show: false},
+                            splitLine: {show: false},
+                            data: [
+                                'ten',
+                                'nine',
+                                'eight',
+                                'seven',
+                                'six',
+                                'five',
+                                'four',
+                                'three',
+                                'two',
+                                'one'
+                            ]
+                        },
+                        series: [
+                            {
+                                name: 'Cost',
+                                type: 'bar',
+                                stack: 'Total',
+                                label: {
+                                    show: true,
+                                    formatter: '{b}'
+                                },
+                                data: [
+                                    {value: -0.07, label: labelRight},
+                                    {value: -0.09, label: labelRight},
+                                    0.2,
+                                    0.44,
+                                    {value: -0.23, label: labelRight},
+                                    0.08,
+                                    {value: -0.17, label: labelRight},
+                                    0.47,
+                                    {value: -0.36, label: labelRight},
+                                    0.18
+                                ]
+                            }
+                        ]
+                    };
+
+                    if (option && typeof option === 'object') {
+                        myChart.setOption(option);
+                    }
+
+                    window.addEventListener('resize', myChart.resize);
+                </script>
+            </div>
+        </section>
+<!--        空白分界-->
+        <div style="background-color: #ffffff; height: 50px"></div>
+        <!--    第二个图表-->
+        <section class="counts section-bg" >
+            <div class="container" >
+                <div class="section-title">
+                    <h2>情感极性显示</h2>
+                </div>
+                <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                <div id="main1" style="width: 100%;height:500px"></div>
+                <script type="text/javascript"
+                        src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/echarts.min.js"></script>
+                <!-- Uncomment this line if you want to dataTool extension
+                <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/extension/dataTool.min.js"></script>
+                -->
+                <!-- Uncomment this line if you want to use gl extension
+                <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+                -->
+                <!-- Uncomment this line if you want to echarts-stat extension
+                <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+                -->
+                <!-- Uncomment this line if you want to use map
+                <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+                <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+                -->
+                <!-- Uncomment these two lines if you want to use bmap extension
+                <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+                <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.0/dist/extension/bmap.min.js"></script>
+                -->
+
+                <script type="text/javascript">
+                    var dom = document.getElementById('main1');
+                    var myChart = echarts.init(dom, null, {
+                        renderer: 'canvas',
+                        useDirtyRect: false
+                    });
+                    var app = {};
+
+                    var option;
+
+                    option = {
+                        title: {
+                            text: '微博文本情感分析',
+                            left: 'center'
+                        },
+                        dataset: {
+                            source: [
+                                ['score', 'amount', 'product'],
+                                [89.3, 58212, 'Matcha Latte'],
+                                [57.1, 78254, 'Milk Tea'],
+                                [74.4, 41032, 'Cheese Cocoa'],
+                                [50.1, 12755, 'Cheese Brownie'],
+                                [89.7, 20145, 'Matcha Cocoa'],
+                                [68.1, 79146, 'Tea'],
+                                [19.6, 91852, 'Orange Juice'],
+                                [10.6, 101852, 'Lemon Juice'],
+                                [32.7, 20112, 'Walnut Brownie']
+                            ]
+                        },
+                        grid: {containLabel: true},
+                        xAxis: {name: 'score'},
+                        yAxis: {type: 'category'},
+                        visualMap: {
+                            orient: 'horizontal',
+                            left: 'center',
+                            min: 10,
+                            max: 100,
+                            text: ['积极', '消极'],
+                            // Map the score column to color
+                            dimension: 0,
+                            inRange: {
+                                color: ['#656565', '#d8caaf', '#F7BA0B']
+                            }
+                        },
+                        series: [
+                            {
+                                type: 'bar',
+                                encode: {
+                                    // Map the "amount" column to X axis.
+                                    x: 'score',
+                                    // Map the "product" column to Y axis
+                                    y: 'product'
+                                }
+                            }
+                        ]
+                    };
+
+                    if (option && typeof option === 'object') {
+                        myChart.setOption(option);
+                    }
+
+                    window.addEventListener('resize', myChart.resize);
+                </script>
+            </div>
+        </section>
+
+    </div>
+
+</section><!-- End Our Team Section -->
+
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+    <div class="container" >
+        <div class="copyright">
+            By <strong><span>ZZC ZTT</span></strong>.
+        </div>
+
+    </div>
+</footer><!-- End Footer -->
+
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="static/assets/vendor/jquery/jquery.min.js"></script>
+<script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="static/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="static/assets/vendor/php-email-form/validate.js"></script>
+<script src="static/assets/vendor/jquery-sticky/jquery.sticky.js"></script>
+<script src="static/assets/vendor/venobox/venobox.min.js"></script>
+<script src="static/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+<script src="static/assets/vendor/counterup/counterup.min.js"></script>
+<script src="static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="static/assets/vendor/aos/aos.js"></script>
+
+<!-- Template Main JS File -->
+<script src="static/assets/js/main.js"></script>
+
+</body>
+</html>
